@@ -8,8 +8,8 @@ public class Main {
 //        new JugSet(2, 3, 7);
 //        new JugSet(1, 1, 1);
 
-        long pair = JugSet.pair(12, 10, 10, 10);
-        System.out.println(pair);
-        System.out.println(Arrays.toString(JugSet.unpair(pair, 5)));
+//        long pair = JugSearch.pair(12,10, 10, 10, 10);
+//        System.out.println(pair);
+//        System.out.println(Arrays.toString(JugSearch.unpair(pair, 5)));
     }
 }

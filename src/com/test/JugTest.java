@@ -34,4 +34,14 @@ public class JugTest {
 
         assertEquals(a.getFilled(), 2);
     }
+
+    @Test
+    public static void Clone() throws CloneNotSupportedException {
+        Jug a = new Jug("A", 2);
+
+        System.out.println(a);
+        Jug clone = (Jug) a.clone();
+        a.fill();
+        System.out.println(clone);
+    }
 }

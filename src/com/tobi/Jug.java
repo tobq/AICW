@@ -1,6 +1,6 @@
 package com.tobi;
 
-public class Jug {
+public class Jug implements Cloneable {
     private final long capacity;
     private long filled;
     private String name;
@@ -41,7 +41,8 @@ public class Jug {
         );
     }
 
-    public void setFilled(long filled) {
-        this.filled = filled;
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }
