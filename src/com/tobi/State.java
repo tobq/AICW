@@ -9,7 +9,22 @@ import java.util.HashSet;
 import java.util.Stack;
 
 public class State {
-    private static final int BRANCHES = 12;
+
+    /**
+     * N field represents the number of Jugs used in state
+     */
+    private static final int N = 3;
+
+    /**
+     * BRANCHES field represents the number of different operations
+     * (branches from one state to another) are available.
+     * <p>
+     * N Fill operations +
+     * N * (N - 1) Transfer operations +
+     * N Transfer operations
+     */
+
+    private static final int BRANCHES = N + N * (N - 1) + N;
 
     private final Jug A;
     private final Jug B;
@@ -20,6 +35,14 @@ public class State {
         this.B = B;
         this.C = C;
     }
+
+    /**
+     * This method goes down 1 of {@value BRANCHES} branches,
+     * which each represent an operation, such as: A.fill()
+     *
+     * @param branch to be traversed
+     * @return the child state (node) at the end of that branch
+     */
 
     public State traverse(int branch) {
         Jug A = this.A.clone();
@@ -67,6 +90,22 @@ public class State {
         return new State(A, B, C);
     }
 
+    /**
+     * This method is an implementation for Depth First Search, searching this
+     * state and logging all the states reachable from this state.
+     * The idea of dynamic programming is used within this search to make
+     * the search much more efficient. If a branch from a state has already
+     * been traversed, it is never done again. This is done by storing Traversals
+     * in a HashSet, and checking whether it already exists, before traversal.
+     *
+     * This method was initially recursively implemented; however, with large
+     * jug capacities, stack overflow errors were -- expectedly -- reached.
+     *
+     * @see Traversal
+     * @see HashSet
+     * @see State#traverse(int)
+     */
+
     public void search() {
         HashSet<State> states = new HashSet<>();
         HashSet<Traversal> visitedTraversals = new HashSet<>();
@@ -95,10 +134,21 @@ public class State {
         );
     }
 
+    /**
+     * @return String representation for this state, used when logging in console
+     * @see State#search()
+     */
+
     @Override
     public String toString() {
         return A + ", " + B + ", " + C;
     }
+
+    /**
+     * @param obj State to be compared to
+     * @return this and obj are in the same state
+     */
+
 
     @Override
     public boolean equals(Object obj) {
@@ -109,6 +159,16 @@ public class State {
                     state.C.level(C);
         } else return false;
     }
+
+    /**
+     * used by HashSet class, to assign a location
+     * for object in the HashTable
+     *
+     * @return object hash
+     * @see HashSet
+     * @see Main#pair(int, int, int...)
+     */
+
 
     @Override
     public int hashCode() {

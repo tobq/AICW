@@ -25,6 +25,14 @@ public class Main {
         startState.search();
     }
 
+    /**
+     * This method is used to read jug capacities from a console
+     *
+     * @param scanner used to read from console
+     * @param jugName used to log request for jug capacity
+     * @return the Integer passed from the console
+     */
+
     private static int readCapacity(Scanner scanner, String jugName) {
         try {
             System.out.printf("Enter capacity for %s: ", jugName);
