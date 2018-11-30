@@ -5,89 +5,77 @@ package com.tobi;
  * @since 29/11/2018
  */
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Stack;
 
 public class State {
 
     /**
-     * N field represents the number of Jugs used in state
+     * jugCount field represents the number of Jugs used in state
      */
-    private static final int N = 3;
+    private final int jugCount;
 
     /**
-     * BRANCHES field represents the number of different operations
+     * branches field represents the number of different operations
      * (branches from one state to another) are available.
      * <p>
-     * N Fill operations +
-     * N * (N - 1) Transfer operations +
-     * N Transfer operations
+     * jugCount Fill operations +
+     * jugCount * (jugCount - 1) Transfer operations +
+     * jugCount Empty operations
      */
 
-    private static final int BRANCHES = N + N * (N - 1) + N;
+    private final int branches;
 
-    private final Jug A;
-    private final Jug B;
-    private final Jug C;
+    private final int[] capacities;
+    private final int[] fills;
+    private final int transferOperations;
 
-    State(Jug A, Jug B, Jug C) {
-        this.A = A;
-        this.B = B;
-        this.C = C;
+    State(int[] fills, int[] capacities) {
+        this.capacities = capacities;
+        int jugCount = capacities.length;
+        this.fills = fills;
+        this.jugCount = jugCount;
+        transferOperations = jugCount * (jugCount - 1);
+        branches = jugCount + transferOperations + jugCount;
     }
 
     /**
-     * This method goes down 1 of {@value BRANCHES} branches,
+     * @param capacities for each jug in this state
+     * @return a state with empty jugs of the given capacities
+     */
+
+    public static State setup(int... capacities) {
+        int[] fills = new int[capacities.length];
+        Arrays.fill(fills, 0);
+        return new State(fills, capacities);
+    }
+
+
+    /**
+     * This method goes down 1 of "branches" branches,
      * which each represent an operation, such as: A.fill()
+     * TODO:
      *
      * @param branch to be traversed
      * @return the child state (node) at the end of that branch
+     * @see State#branches
      */
 
     public State traverse(int branch) {
-        Jug A = this.A.clone();
-        Jug B = this.B.clone();
-        Jug C = this.C.clone();
-
-        switch (branch) {
-            case (0):
-                A.to(B);
-                break;
-            case (1):
-                A.to(C);
-                break;
-            case (2):
-                B.to(A);
-                break;
-            case (3):
-                B.to(C);
-                break;
-            case (4):
-                C.to(A);
-                break;
-            case (5):
-                C.to(B);
-                break;
-            case (6):
-                A.fill();
-                break;
-            case (7):
-                B.fill();
-                break;
-            case (8):
-                C.fill();
-                break;
-            case (9):
-                A.empty();
-                break;
-            case (10):
-                B.empty();
-                break;
-            case (11):
-                C.empty();
-                break;
+//        if (branch < 0) return this; // todo: check performance hit
+        State state = new State(fills, capacities);
+        if (branch < transferOperations) {
+            for (int i = 0; i < jugCount; i++) {
+                if (branch < i *)
+            }
+        } else {
+            branch -= transferOperations;
+            if (branch < jugCount) state.fills[branch] = capacities[branch];
+            else state.fills[branch - jugCount] = 0;
         }
-        return new State(A, B, C);
+
+        return state;
     }
 
     /**
@@ -116,19 +104,17 @@ public class State {
         while (!stack.isEmpty()) {
             State state = stack.pop();
             if (states.add(state)) System.out.println(state);
-            for (int i = 0; i < BRANCHES; i++)
+            for (int i = 0; i < branches; i++)
                 if (visitedTraversals.add(new Traversal(state, i)))
                     stack.push(state.traverse(i));
         }
         long endTime = System.nanoTime();
 
         System.out.printf(
-                "\nFound %d possible states from jug capacities {A: %d, B: %d, C: %d}\n" +
+                "\nFound %d possible states from jug capacities %s\n" +
                         "Search traversed %d branches in %.3f milliseconds",
                 states.size(),
-                A.getCapacity(),
-                B.getCapacity(),
-                C.getCapacity(),
+                Arrays.toString(capacities),
                 visitedTraversals.size(),
                 (endTime - startTime) / 1E6
         );

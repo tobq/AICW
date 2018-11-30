@@ -19,12 +19,7 @@ public class Main {
             capacityC = readCapacity(scanner, "C");
         }
 
-        State startState = new State(
-                new Jug("A", 0, capacityA),
-                new Jug("B", 0, capacityB),
-                new Jug("C", 0, capacityC)
-        );
-
+        State startState = State.setup(capacityA, capacityB, capacityC);
         startState.search();
     }
 
