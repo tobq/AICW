@@ -1,28 +1,35 @@
 package com.tobi;
 
-public class Jug implements Cloneable {
-    private final long capacity;
-    private long filled;
+/**
+ * @author Tobi Akinyemi
+ * @since 29/11/2018
+ */
+
+/**
+ * Jug class, representing 1 of 3 jugs
+ */
+public class Jug {
     private String name;
+    private int filled;
+    private final int capacity;
 
-    public Jug(String name, long capacity, long filled) {
+
+    public Jug(String name, int filled, int capacity) {
         this.name = name;
-        this.capacity = capacity;
         this.filled = filled;
+        this.capacity = capacity;
     }
 
-    public Jug(String name, long capacity) {
-        this(name, capacity, 0);
-    }
-
-    public long getFilled() {
+    public int getFilled() {
         return filled;
     }
 
-    public void to(Jug jug) {
-        long sum = jug.filled + filled;
-        filled = jug.capacity < filled ? filled - jug.capacity : 0;
-        jug.filled = sum < jug.capacity ? sum : jug.capacity;
+    public void to(Jug destination) {
+        int spaceLeft = destination.capacity - destination.filled;
+        int moving = spaceLeft > filled ? filled : spaceLeft;
+        filled -= moving;
+        int result = destination.filled + moving;
+        destination.filled = result < destination.capacity ? result : destination.capacity;
     }
 
     public void fill() {
@@ -35,14 +42,32 @@ public class Jug implements Cloneable {
 
     @Override
     public String toString() {
-        return String.format(
-                "Jug %s { %d / %d }",
-                name, filled, capacity
-        );
+        return String.format("Jug %s { %d / %d }", name, filled, capacity);
+    }
+
+    public Jug clone() {
+        return new Jug(name, filled, capacity);
     }
 
     @Override
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
+    public boolean equals(Object obj) {
+        if (obj instanceof Jug) {
+            Jug jug = (Jug) obj;
+            return jug.filled == filled &&
+                    jug.capacity == capacity;
+        } else return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Main.pair(filled, capacity);
+    }
+
+    public boolean level(Jug jug) {
+        return jug.filled == filled;
+    }
+
+    public int getCapacity() {
+        return capacity;
     }
 }

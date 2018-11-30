@@ -3,9 +3,12 @@ package com.test;
 import com.tobi.Jug;
 import org.testng.annotations.Test;
 
+import java.util.HashSet;
+
 import static org.testng.Assert.assertEquals;
 
 public class JugTest {
+
     @Test
     public static void to() {
         Jug a = new Jug("A", 2),
@@ -36,12 +39,12 @@ public class JugTest {
     }
 
     @Test
-    public static void Clone() throws CloneNotSupportedException {
+    public static void Clone()  {
         Jug a = new Jug("A", 2);
 
-        System.out.println(a);
-        Jug clone = (Jug) a.clone();
+        Jug clone = a.clone();
         a.fill();
+        System.out.println(a);
         System.out.println(clone);
     }
 }

@@ -1,15 +1,70 @@
 package com.tobi;
 
-import java.util.Arrays;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+/**
+ * @author Tobi Akinyemi
+ * @since 29/11/2018
+ */
 
 public class Main {
 
     public static void main(String[] args) {
-//        new JugSet(2, 3, 7);
-//        new JugSet(1, 1, 1);
+        Scanner scanner = new Scanner(System.in);
+        int capacityA = readCapacity(scanner, "A"),
+                capacityB = readCapacity(scanner, "B"),
+                capacityC = readCapacity(scanner, "C");
 
-//        long pair = JugSearch.pair(12,10, 10, 10, 10);
-//        System.out.println(pair);
-//        System.out.println(Arrays.toString(JugSearch.unpair(pair, 5)));
+        State startState = State.setup(capacityA, capacityB, capacityC);
+
+        long startTime = System.nanoTime();
+        startState.search();
+        long endTime = System.nanoTime();
+        System.out.println();
+        System.out.printf("Search completed in %.3f ms", (endTime - startTime) / 1E6);
+    }
+
+    private static int readCapacity(Scanner scanner, String jugName) {
+        try {
+            System.out.printf("Enter capacity for %s: ", jugName);
+            return scanner.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.print("Invalid input capacity. ");
+            scanner.next();
+            return readCapacity(scanner, jugName);
+        }
+    }
+
+    /**
+     * This is an implementation of Szudzik's efficient
+     * "Elegant Pair" function
+     *
+     * @param x first value in pairing
+     * @param y second value in pairing
+     * @return unique integer mapping to both x and y
+     * @see <a href="http://szudzik.com/ElegantPairing.pdf">Szudzik's function</a>
+     */
+
+    public static int pair(int x, int y) {
+        return x > y ? x * x + x + y : x + y * y;
+    }
+
+    /**
+     * This is and overload for the "Elegant Pair" implementation
+     * where N numbers can be paired
+     * ! N >= 2
+     *
+     * @param x    first value in pairing
+     * @param y    second value in pairing
+     * @param rest N-2 numbers to be added to pairing
+     * @return unique integer mapping to both x and y
+     * @see Main#pair(int, int)
+     */
+
+    public static int pair(int x, int y, int... rest) {
+        int result = pair(x, x);
+        for (int c : rest) result = pair(result, c);
+        return result;
     }
 }
