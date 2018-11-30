@@ -97,7 +97,7 @@ public class State {
      * the search much more efficient. If a branch from a state has already
      * been traversed, it is never done again. This is done by storing Traversals
      * in a HashSet, and checking whether it already exists, before traversal.
-     *
+     * <p>
      * This method was initially recursively implemented; however, with large
      * jug capacities, stack overflow errors were -- expectedly -- reached.
      *

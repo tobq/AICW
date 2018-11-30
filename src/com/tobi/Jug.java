@@ -57,13 +57,12 @@ public class Jug {
 
     /**
      * @return String representation for this jug, used when logging in console
-     *
      * @see State#toString()
      */
 
     @Override
     public String toString() {
-        return String.format("Jug %s { %d / %d }", name, filled, capacity);
+        return String.format("%s: %d", name, filled);
     }
 
     /**
@@ -108,7 +107,6 @@ public class Jug {
     /**
      * @param jug to be compared to
      * @return whether this and jug are filled to the same level
-     *
      * @see State#equals(Object)
      */
 
