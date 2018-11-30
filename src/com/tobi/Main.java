@@ -11,10 +11,13 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int capacityA = readCapacity(scanner, "A"),
-                capacityB = readCapacity(scanner, "B"),
-                capacityC = readCapacity(scanner, "C");
+        int capacityA, capacityB, capacityC;
+
+        try (Scanner scanner = new Scanner(System.in)) {
+            capacityA = readCapacity(scanner, "A");
+            capacityB = readCapacity(scanner, "B");
+            capacityC = readCapacity(scanner, "C");
+        }
 
         State startState = new State(
                 new Jug("A", 0, capacityA),

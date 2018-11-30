@@ -24,6 +24,10 @@ public class Jug {
         return filled;
     }
 
+    public int getCapacity() {
+        return capacity;
+    }
+
     /**
      * Transfers water from this jug, to another
      * without overfilling the destination
@@ -91,20 +95,6 @@ public class Jug {
     }
 
     /**
-     * used by HashSet class, to assign a location
-     * for object in the HashTable
-     *
-     * @return object hash
-     * @see java.util.HashSet
-     * @see Main#pair(int, int)
-     */
-
-    @Override
-    public int hashCode() {
-        return Main.pair(filled, capacity);
-    }
-
-    /**
      * @param jug to be compared to
      * @return whether this and jug are filled to the same level
      * @see State#equals(Object)
@@ -112,9 +102,5 @@ public class Jug {
 
     public boolean level(Jug jug) {
         return jug.filled == filled;
-    }
-
-    public int getCapacity() {
-        return capacity;
     }
 }

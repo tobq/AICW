@@ -141,7 +141,7 @@ public class State {
 
     @Override
     public String toString() {
-        return A + ", " + B + ", " + C;
+        return String.format("State {%s, %s, %s}", A, B, C);
     }
 
     /**
