@@ -73,6 +73,7 @@ public class State {
         Stack<State> stack = new Stack<>();
         stack.push(this);
 
+        long startTime = System.nanoTime();
         while (!stack.isEmpty()) {
             State state = stack.pop();
             if (states.add(state)) System.out.println(state);
@@ -80,15 +81,17 @@ public class State {
                 if (visitedTraversals.add(new Traversal(state, i)))
                     stack.push(state.traverse(i));
         }
+        long endTime = System.nanoTime();
 
-        System.out.println();
         System.out.printf(
-                "Found %d possible states from jug capacities (%d, %d, %d), after %d traversals",
+                "\nFound %d possible states from jug capacities {A: %d, B: %d, C: %d}\n" +
+                        "Search traversed %d branches in %.3f milliseconds",
                 states.size(),
                 A.getCapacity(),
                 B.getCapacity(),
                 C.getCapacity(),
-                visitedTraversals.size()
+                visitedTraversals.size(),
+                (endTime - startTime) / 1E6
         );
     }
 
@@ -110,14 +113,6 @@ public class State {
     @Override
     public int hashCode() {
         return Main.pair(A.getFilled(), B.getFilled(), C.getFilled());
-    }
-
-    public static State setup(int capacityA, int capacityB, int capacityC) {
-        return new State(
-                new Jug("A", 0, capacityA),
-                new Jug("B", 0, capacityB),
-                new Jug("C", 0, capacityC)
-        );
     }
 }
 

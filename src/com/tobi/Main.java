@@ -16,13 +16,13 @@ public class Main {
                 capacityB = readCapacity(scanner, "B"),
                 capacityC = readCapacity(scanner, "C");
 
-        State startState = State.setup(capacityA, capacityB, capacityC);
+        State startState = new State(
+                new Jug("A", 0, capacityA),
+                new Jug("B", 0, capacityB),
+                new Jug("C", 0, capacityC)
+        );
 
-        long startTime = System.nanoTime();
         startState.search();
-        long endTime = System.nanoTime();
-        System.out.println();
-        System.out.printf("Search completed in %.3f ms", (endTime - startTime) / 1E6);
     }
 
     private static int readCapacity(Scanner scanner, String jugName) {
