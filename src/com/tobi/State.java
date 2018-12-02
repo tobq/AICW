@@ -27,8 +27,22 @@ public class State {
 
     private final int branches;
 
+    /**
+     * array, of size {@link State#jugCount}, containing capacities for each jug
+     */
+
     private final int[] capacities;
+
+    /**
+     * array, of size {@link State#jugCount}, containing fill levels for each jug
+     */
+
     private final int[] fills;
+
+    /**
+     * number of different transfer operations between each jug,
+     * calculated by {@link State#jugCount} * ({@link State#jugCount} - 1)
+     */
     private final int transferOperations;
 
     State(int[] fills, int[] capacities) {
@@ -54,28 +68,38 @@ public class State {
 
     /**
      * This method goes down 1 of "branches" branches,
-     * which each represent an operation, such as: A.fill()
-     * TODO:
+     * TODO: which each represent an operation, such as: A.fill()
      *
      * @param branch to be traversed
      * @return the child state (node) at the end of that branch
      * @see State#branches
      */
 
-    public State traverse(int branch) {
-//        if (branch < 0) return this; // todo: check performance hit
-        State state = new State(fills, capacities);
+    private State traverse(int branch) {
+        State childState = clone();
         if (branch < transferOperations) {
-            for (int i = 0; i < jugCount; i++) {
-                if (branch < i *)
-            }
+            int destinations = jugCount - 1,
+                    source = branch / destinations,
+                    destination = branch % destinations;
+            if (destination == source) destination = destinations;
+
+            int destinationCapacity = capacities[destination];
+            int destinationFill = fills[destination];
+            int spaceLeft = destinationCapacity - destinationFill,
+                    moving = spaceLeft > fills[source] ? fills[source] : spaceLeft,
+                    result = destinationFill + moving;
+
+            childState.fills[source] -= moving;
+            childState.fills[destination] =
+                    result < destinationCapacity ?
+                            result : destinationCapacity;
         } else {
             branch -= transferOperations;
-            if (branch < jugCount) state.fills[branch] = capacities[branch];
-            else state.fills[branch - jugCount] = 0;
+            if (branch < jugCount) childState.fills[branch] = capacities[branch];
+            else childState.fills[branch - jugCount] = 0;
         }
 
-        return state;
+        return childState;
     }
 
     /**
@@ -104,9 +128,12 @@ public class State {
         while (!stack.isEmpty()) {
             State state = stack.pop();
             if (states.add(state)) System.out.println(state);
-            for (int i = 0; i < branches; i++)
-                if (visitedTraversals.add(new Traversal(state, i)))
+            for (int i = 0; i < branches; i++) {
+                Traversal e = new Traversal(state, i);
+//                System.out.println(e); TODO:
+                if (visitedTraversals.add(e))
                     stack.push(state.traverse(i));
+            }
         }
         long endTime = System.nanoTime();
 
@@ -127,7 +154,7 @@ public class State {
 
     @Override
     public String toString() {
-        return String.format("State {%s, %s, %s}", A, B, C);
+        return String.format("State %s", Arrays.toString(fills));
     }
 
     /**
@@ -135,14 +162,11 @@ public class State {
      * @return this and obj are in the same state
      */
 
-
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof State) {
             State state = (State) obj;
-            return state.A.level(A) &&
-                    state.B.level(B) &&
-                    state.C.level(C);
+            return Arrays.equals(fills, state.fills);
         } else return false;
     }
 
@@ -150,43 +174,20 @@ public class State {
      * used by HashSet class, to assign a location
      * for object in the HashTable
      *
-     * @return object hash
+     * @return Hash representation of this state
      * @see HashSet
-     * @see Main#pair(int, int, int...)
+     * @see StateSearch#pair(int...)
      */
 
 
     @Override
     public int hashCode() {
-        return Main.pair(A.getFilled(), B.getFilled(), C.getFilled());
+        return StateSearch.pair(fills);
+    }
+
+    @Override
+    protected State clone() {
+        return new State(fills.clone(), capacities.clone());
     }
 }
 
-class Traversal {
-    private final int branch;
-    private final State state;
-
-    Traversal(State state, int branch) {
-        this.branch = branch;
-        this.state = state;
-    }
-
-    @Override
-    public String toString() {
-        return branch + ": " + state.toString();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Traversal) {
-            Traversal traversal = (Traversal) obj;
-            return traversal.branch == branch &&
-                    traversal.state.equals(state);
-        } else return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return Main.pair(branch, state.hashCode());
-    }
-}
