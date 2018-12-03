@@ -68,7 +68,7 @@ public class State {
 
     /**
      * This method goes down 1 of "branches" branches,
-     * TODO: which each represent an operation, such as: A.fill()
+     * which each represent an operation such as "Fill Jug 1"
      *
      * @param branch to be traversed
      * @return the child state (node) at the end of that branch
@@ -82,24 +82,50 @@ public class State {
                     source = branch / destinations,
                     destination = branch % destinations;
             if (destination == source) destination = destinations;
-
-            int destinationCapacity = capacities[destination];
-            int destinationFill = fills[destination];
-            int spaceLeft = destinationCapacity - destinationFill,
-                    moving = spaceLeft > fills[source] ? fills[source] : spaceLeft,
-                    result = destinationFill + moving;
-
-            childState.fills[source] -= moving;
-            childState.fills[destination] =
-                    result < destinationCapacity ?
-                            result : destinationCapacity;
+            childState.transfer(source, destination);
         } else {
             branch -= transferOperations;
-            if (branch < jugCount) childState.fills[branch] = capacities[branch];
-            else childState.fills[branch - jugCount] = 0;
+            if (branch < jugCount) childState.fill(branch);
+            else childState.empty(branch - jugCount);
         }
 
         return childState;
+    }
+
+    public void transfer(int source, int destination) {
+        int destinationCapacity = capacities[destination];
+        int destinationFill = fills[destination];
+        int spaceLeft = destinationCapacity - destinationFill,
+                moving = spaceLeft > fills[source] ? fills[source] : spaceLeft,
+                result = destinationFill + moving;
+
+        fills[source] -= moving;
+        fills[destination] =
+                result < destinationCapacity ?
+                        result : destinationCapacity;
+    }
+
+    public void fill(int jug) {
+        fills[jug] = capacities[jug];
+    }
+
+    public void empty(int jug) {
+        fills[jug] = 0;
+    }
+
+    public String branchDescription(int branch) {
+        if (branch < transferOperations) {
+            int destinations = jugCount - 1,
+                    source = branch / destinations,
+                    destination = branch % destinations;
+            if (destination == source) destination = destinations;
+
+            return String.format("Transfer from Jug %d to Jug %d", source, destination);
+        } else {
+            branch -= transferOperations;
+            if (branch < jugCount) return String.format("Fill Jug %d", branch);
+            else return String.format("Empty Jug %d", branch - jugCount);
+        }
     }
 
     /**
@@ -127,12 +153,16 @@ public class State {
         long startTime = System.nanoTime();
         while (!stack.isEmpty()) {
             State state = stack.pop();
-            if (states.add(state)) System.out.println(state);
+            if (states.add(state));
+            // System.out.println(state);
             for (int i = 0; i < branches; i++) {
-                Traversal e = new Traversal(state, i);
-//                System.out.println(e); TODO:
-                if (visitedTraversals.add(e))
-                    stack.push(state.traverse(i));
+                Traversal traversal = new Traversal(state, i);
+                if (visitedTraversals.add(traversal)) {
+                    State childState = state.traverse(i);
+//                    System.out.println(traversal + " > " + childState);
+                    stack.push(childState);
+                }
+//                else System.out.println("Skipping: " + traversal);
             }
         }
         long endTime = System.nanoTime();

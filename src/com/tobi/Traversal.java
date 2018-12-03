@@ -26,7 +26,7 @@ class Traversal {
 
     @Override
     public String toString() {
-        return branch + ": " + state.toString();
+        return state.branchDescription(branch) + ": " + state.toString();
     }
 
 
