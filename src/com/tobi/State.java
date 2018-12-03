@@ -7,6 +7,7 @@ package com.tobi;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Stack;
 
 public class State {
@@ -139,30 +140,33 @@ public class State {
      * This method was initially recursively implemented; however, with large
      * jug capacities, stack overflow errors were -- expectedly -- reached.
      *
-     * @see Traversal
      * @see HashSet
      * @see State#traverse(int)
      */
 
     public void search() {
-        HashSet<State> states = new HashSet<>();
-        HashSet<Traversal> visitedTraversals = new HashSet<>();
+        Hashtable<State, Long> states = new Hashtable<>();
         Stack<State> stack = new Stack<>();
         stack.push(this);
 
         long startTime = System.nanoTime();
         while (!stack.isEmpty()) {
             State state = stack.pop();
-            if (states.add(state));
-            // System.out.println(state);
+            if (!states.containsKey(state)) {
+                states.put(state, 0L);
+//                 System.out.println(state);
+            }
             for (int i = 0; i < branches; i++) {
-                Traversal traversal = new Traversal(state, i);
-                if (visitedTraversals.add(traversal)) {
+                int shifted = 1 << i;
+                Long traversals = states.get(state);
+                if ((traversals & shifted) == shifted) {
+//                else System.out.println("Skipping: " + traversal);
+                } else {
                     State childState = state.traverse(i);
 //                    System.out.println(traversal + " > " + childState);
                     stack.push(childState);
+                    states.put(state, traversals | shifted);
                 }
-//                else System.out.println("Skipping: " + traversal);
             }
         }
         long endTime = System.nanoTime();
@@ -172,7 +176,7 @@ public class State {
                         "Search traversed %d branches in %.3f milliseconds",
                 states.size(),
                 Arrays.toString(capacities),
-                visitedTraversals.size(),
+                stack.size() * branches,
                 (endTime - startTime) / 1E6
         );
     }
