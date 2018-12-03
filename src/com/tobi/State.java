@@ -154,7 +154,7 @@ public class State {
             State state = stack.pop();
             if (!states.containsKey(state)) {
                 states.put(state, 0L);
-//                 System.out.println(state);
+                 System.out.println(state);
             }
             for (int i = 0; i < branches; i++) {
                 int shifted = 1 << i;
@@ -163,7 +163,7 @@ public class State {
 //                else System.out.println("Skipping: " + traversal);
                 } else {
                     State childState = state.traverse(i);
-//                    System.out.println(traversal + " > " + childState);
+                    System.out.println(branchDescription(i) + ": " + state + " > " + childState);
                     stack.push(childState);
                     states.put(state, traversals | shifted);
                 }
