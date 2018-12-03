@@ -176,7 +176,7 @@ public class State {
                         "Search traversed %d branches in %.3f milliseconds",
                 states.size(),
                 Arrays.toString(capacities),
-                stack.size() * branches,
+                states.size() * branches,
                 (endTime - startTime) / 1E6
         );
     }
