@@ -5,11 +5,14 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
+ * Main class used to set up inputs and start
+ * state search on user-specified capacities
+ *
  * @author Tobi Akinyemi
  * @since 29/11/2018
  */
 
-public class StateSearch {
+class StateSearch {
 
     /**
      * Starts state search using capacities from CLI arguments,
@@ -109,7 +112,7 @@ public class StateSearch {
      * @see <a href="http://szudzik.com/ElegantPairing.pdf">Szudzik's function</a>
      */
 
-    public static int pair(int x, int y) {
+    private static int pair(int x, int y) {
         return x > y ? x * x + x + y : x + y * y;
     }
 

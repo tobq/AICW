@@ -1,13 +1,16 @@
 package com.tobi;
 
-/**
- * @author Tobi Akinyemi
- * @since 29/11/2018
- */
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Stack;
+
+/**
+ * State class representing a state of n water jugs
+ *
+ * @author Tobi Akinyemi
+ * @since 29/11/2018
+ */
 
 public class State {
 
@@ -45,7 +48,7 @@ public class State {
 
     private final int[] fills;
 
-    State(int[] fills, int[] capacities) {
+    private State(int[] fills, int[] capacities) {
         this.capacities = capacities;
         int jugCount = capacities.length;
         this.fills = fills;
@@ -102,7 +105,7 @@ public class State {
      * @param destination jug
      */
 
-    public void transfer(int source, int destination) {
+    private void transfer(int source, int destination) {
         int destinationCapacity = capacities[destination];
         int destinationFill = fills[destination];
         int spaceLeft = destinationCapacity - destinationFill,
@@ -121,7 +124,7 @@ public class State {
      * @param jug index
      */
 
-    public void fill(int jug) {
+    private void fill(int jug) {
         fills[jug] = capacities[jug];
     }
 
@@ -131,7 +134,7 @@ public class State {
      * @param jug index
      */
 
-    public void empty(int jug) {
+    private void empty(int jug) {
         fills[jug] = 0;
     }
 
