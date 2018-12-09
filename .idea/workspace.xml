@@ -23,7 +23,7 @@
       <file leaf-file-name="StateSearch.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/tobi/StateSearch.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1394">
+            <state relative-caret-position="17">
               <caret line="84" column="39" lean-forward="false" selection-start-line="84" selection-start-column="39" selection-end-line="84" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -37,14 +37,20 @@
       <file leaf-file-name="State.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/tobi/State.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="161" column="32" lean-forward="true" selection-start-line="161" selection-start-column="32" selection-end-line="163" selection-end-column="24" />
+            <state relative-caret-position="99">
+              <caret line="157" column="38" lean-forward="false" selection-start-line="157" selection-start-column="38" selection-end-line="157" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#3158#3159#0" expanded="true" />
                 <element signature="e#3202#3203#0" expanded="true" />
                 <element signature="e#3236#3237#0" expanded="true" />
                 <element signature="e#3266#3267#0" expanded="true" />
+                <element signature="e#5919#5920#0" expanded="true" />
+                <element signature="e#5991#5992#0" expanded="true" />
+                <element signature="e#6579#6580#0" expanded="true" />
+                <element signature="e#6625#6626#0" expanded="true" />
+                <element signature="e#6670#6671#0" expanded="true" />
+                <element signature="e#6737#6738#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -61,8 +67,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>printjugs</find>
-      <find>tostring()</find>
       <find>pair</find>
       <find>equals</find>
       <find>hashcode() {</find>
@@ -91,6 +95,8 @@
       <find>.add(</find>
       <find>BRANCHES IN</find>
       <find>out.println</find>
+      <find>|</find>
+      <find>long</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -114,6 +120,7 @@
         <option value="$PROJECT_DIR$/src/com/tobi/Main.java" />
         <option value="$PROJECT_DIR$/src/com/tobi/StateSearch.java" />
         <option value="$PROJECT_DIR$/src/com/tobi/Traversal.java" />
+        <option value="$PROJECT_DIR$/src/com/tobi/BranchField.java" />
         <option value="$PROJECT_DIR$/src/com/tobi/State.java" />
       </list>
     </option>
@@ -408,7 +415,7 @@
       <workItem from="1543670647071" duration="2140000" />
       <workItem from="1543708344045" duration="3740000" />
       <workItem from="1543951216593" duration="1331000" />
-      <workItem from="1544369262743" duration="326000" />
+      <workItem from="1544369262743" duration="2963000" />
     </task>
     <servers />
   </component>
@@ -445,7 +452,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="78134000" />
+    <option name="totallyTimeSpent" value="80771000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -461,7 +468,7 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3263434" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32567567" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
@@ -469,7 +476,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41756758" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32896462" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" x="0" y="305" width="1600" height="251" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32837838" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" x="0" y="305" width="1600" height="251" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14910026" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -502,18 +509,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/tobi/StateSearch.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3155#3156#0" expanded="true" />
-            <element signature="e#3211#3212#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tobi/State.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1037">
@@ -524,6 +519,12 @@
             <element signature="e#3202#3203#0" expanded="true" />
             <element signature="e#3236#3237#0" expanded="true" />
             <element signature="e#3266#3267#0" expanded="true" />
+            <element signature="e#5919#5920#0" expanded="true" />
+            <element signature="e#5991#5992#0" expanded="true" />
+            <element signature="e#6579#6580#0" expanded="true" />
+            <element signature="e#6625#6626#0" expanded="true" />
+            <element signature="e#6670#6671#0" expanded="true" />
+            <element signature="e#6737#6738#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -557,6 +558,12 @@
             <element signature="e#3202#3203#0" expanded="true" />
             <element signature="e#3236#3237#0" expanded="true" />
             <element signature="e#3266#3267#0" expanded="true" />
+            <element signature="e#5919#5920#0" expanded="true" />
+            <element signature="e#5991#5992#0" expanded="true" />
+            <element signature="e#6579#6580#0" expanded="true" />
+            <element signature="e#6625#6626#0" expanded="true" />
+            <element signature="e#6670#6671#0" expanded="true" />
+            <element signature="e#6737#6738#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -592,6 +599,12 @@
             <element signature="e#3202#3203#0" expanded="true" />
             <element signature="e#3236#3237#0" expanded="true" />
             <element signature="e#3266#3267#0" expanded="true" />
+            <element signature="e#5919#5920#0" expanded="true" />
+            <element signature="e#5991#5992#0" expanded="true" />
+            <element signature="e#6579#6580#0" expanded="true" />
+            <element signature="e#6625#6626#0" expanded="true" />
+            <element signature="e#6670#6671#0" expanded="true" />
+            <element signature="e#6737#6738#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -619,6 +632,12 @@
             <element signature="e#3202#3203#0" expanded="true" />
             <element signature="e#3236#3237#0" expanded="true" />
             <element signature="e#3266#3267#0" expanded="true" />
+            <element signature="e#5919#5920#0" expanded="true" />
+            <element signature="e#5991#5992#0" expanded="true" />
+            <element signature="e#6579#6580#0" expanded="true" />
+            <element signature="e#6625#6626#0" expanded="true" />
+            <element signature="e#6670#6671#0" expanded="true" />
+            <element signature="e#6737#6738#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -648,6 +667,12 @@
             <element signature="e#3202#3203#0" expanded="true" />
             <element signature="e#3236#3237#0" expanded="true" />
             <element signature="e#3266#3267#0" expanded="true" />
+            <element signature="e#5919#5920#0" expanded="true" />
+            <element signature="e#5991#5992#0" expanded="true" />
+            <element signature="e#6579#6580#0" expanded="true" />
+            <element signature="e#6625#6626#0" expanded="true" />
+            <element signature="e#6670#6671#0" expanded="true" />
+            <element signature="e#6737#6738#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -697,6 +722,12 @@
             <element signature="e#3202#3203#0" expanded="true" />
             <element signature="e#3236#3237#0" expanded="true" />
             <element signature="e#3266#3267#0" expanded="true" />
+            <element signature="e#5919#5920#0" expanded="true" />
+            <element signature="e#5991#5992#0" expanded="true" />
+            <element signature="e#6579#6580#0" expanded="true" />
+            <element signature="e#6625#6626#0" expanded="true" />
+            <element signature="e#6670#6671#0" expanded="true" />
+            <element signature="e#6737#6738#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -744,6 +775,12 @@
             <element signature="e#3202#3203#0" expanded="true" />
             <element signature="e#3236#3237#0" expanded="true" />
             <element signature="e#3266#3267#0" expanded="true" />
+            <element signature="e#5919#5920#0" expanded="true" />
+            <element signature="e#5991#5992#0" expanded="true" />
+            <element signature="e#6579#6580#0" expanded="true" />
+            <element signature="e#6625#6626#0" expanded="true" />
+            <element signature="e#6670#6671#0" expanded="true" />
+            <element signature="e#6737#6738#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -771,6 +808,12 @@
             <element signature="e#3202#3203#0" expanded="true" />
             <element signature="e#3236#3237#0" expanded="true" />
             <element signature="e#3266#3267#0" expanded="true" />
+            <element signature="e#5919#5920#0" expanded="true" />
+            <element signature="e#5991#5992#0" expanded="true" />
+            <element signature="e#6579#6580#0" expanded="true" />
+            <element signature="e#6625#6626#0" expanded="true" />
+            <element signature="e#6670#6671#0" expanded="true" />
+            <element signature="e#6737#6738#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -800,6 +843,12 @@
             <element signature="e#3202#3203#0" expanded="true" />
             <element signature="e#3236#3237#0" expanded="true" />
             <element signature="e#3266#3267#0" expanded="true" />
+            <element signature="e#5919#5920#0" expanded="true" />
+            <element signature="e#5991#5992#0" expanded="true" />
+            <element signature="e#6579#6580#0" expanded="true" />
+            <element signature="e#6625#6626#0" expanded="true" />
+            <element signature="e#6670#6671#0" expanded="true" />
+            <element signature="e#6737#6738#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -852,13 +901,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="139">
           <caret line="58" column="19" lean-forward="false" selection-start-line="58" selection-start-column="19" selection-end-line="58" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tobi/Traversal.java" />
     <entry file="file://$PROJECT_DIR$/src/com/tobi/StateSearch.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1394">
+        <state relative-caret-position="17">
           <caret line="84" column="39" lean-forward="false" selection-start-line="84" selection-start-column="39" selection-end-line="84" selection-end-column="39" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -868,16 +918,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/tobi/BranchField.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="17" lean-forward="true" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tobi/State.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="161" column="32" lean-forward="true" selection-start-line="161" selection-start-column="32" selection-end-line="163" selection-end-column="24" />
+        <state relative-caret-position="99">
+          <caret line="157" column="38" lean-forward="false" selection-start-line="157" selection-start-column="38" selection-end-line="157" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#3158#3159#0" expanded="true" />
             <element signature="e#3202#3203#0" expanded="true" />
             <element signature="e#3236#3237#0" expanded="true" />
             <element signature="e#3266#3267#0" expanded="true" />
+            <element signature="e#5919#5920#0" expanded="true" />
+            <element signature="e#5991#5992#0" expanded="true" />
+            <element signature="e#6579#6580#0" expanded="true" />
+            <element signature="e#6625#6626#0" expanded="true" />
+            <element signature="e#6670#6671#0" expanded="true" />
+            <element signature="e#6737#6738#0" expanded="true" />
           </folding>
         </state>
       </provider>

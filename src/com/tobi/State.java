@@ -145,38 +145,34 @@ public class State {
      */
 
     public void search() {
-        Hashtable<State, Long> states = new Hashtable<>();
+        HashSet<State> states = new HashSet<>();
         Stack<State> stack = new Stack<>();
         stack.push(this);
 
+        // Search stopwatch began
         long startTime = System.nanoTime();
-        while (!stack.isEmpty()) {
+        long ITERATIONS = 0;
+        for (; !stack.isEmpty(); ITERATIONS++) {
             State state = stack.pop();
-            if (!states.containsKey(state)) {
-                states.put(state, 0L);
-//                 System.out.println(state);
-            }
+            states.add(state);
+            System.out.println(state);
             for (int i = 0; i < branches; i++) {
-                int shifted = 1 << i;
-                Long traversals = states.get(state);
-                if ((traversals & shifted) == shifted) {
-//                else System.out.println("Skipping: " + traversal);
-                } else {
-                    State childState = state.traverse(i);
+                State childState = state.traverse(i);
 //                    System.out.println(branchDescription(i) + ": " + state + " > " + childState);
+                if (!states.contains(childState))
                     stack.push(childState);
-                    states.put(state, traversals | shifted);
-                }
             }
         }
+
+        // Search stopwatch stopped
         long endTime = System.nanoTime();
 
         System.out.printf(
-                "\nFound %d possible states from jug capacities %s\n" +
-                        "Search traversed %d branches in %.3f milliseconds",
+                "\nFound %d unique states from jug capacities %s\n" +
+                        "Search iterated %d times in %.3f milliseconds",
                 states.size(),
                 Arrays.toString(capacities),
-                states.size() * branches,
+                ITERATIONS,
                 (endTime - startTime) / 1E6
         );
     }
