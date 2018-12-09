@@ -11,6 +11,13 @@ import java.util.Scanner;
 
 public class StateSearch {
 
+    /**
+     * Starts state search using capacities from CLI arguments,
+     * or capacities read from console
+     *
+     * @param args from console
+     */
+
     public static void main(String[] args) {
         int capacityArgCount = args.length;
         State startState;
@@ -20,7 +27,7 @@ public class StateSearch {
                 try {
                     capacities[i] = Integer.parseInt(args[i]);
                 } catch (NumberFormatException e) {
-                    System.out.printf("ERROR: '%s' is not an integer jug capacity\n", args[i]);
+                    System.out.printf("ERROR: '%s' is not a valid integer jug capacity\n", args[i]);
                     System.exit(1);
                 }
             }
@@ -30,6 +37,12 @@ public class StateSearch {
         }
         startState.search();
     }
+
+    /**
+     * This used to read capacities from the console (when no CLI arguments are given)
+     *
+     * @return the capacities read
+     */
 
     private static int[] readCapacities() {
         ArrayList<Integer> capacityList = new ArrayList<>();
@@ -62,6 +75,15 @@ public class StateSearch {
             return readCapacity(scanner, jugNumber);
         }
     }
+
+    /**
+     * This method is used to read following (optional) jug capacities from a console
+     * after the first capacity has been read
+     *
+     * @param scanner   used to read from console
+     * @param jugNumber used to log request for jug capacity
+     * @return the Integer passed from the console
+     */
 
     private static int readOptionalCapacity(Scanner scanner, int jugNumber)
             throws NoSuchElementException {

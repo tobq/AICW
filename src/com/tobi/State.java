@@ -7,7 +7,6 @@ package com.tobi;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Hashtable;
 import java.util.Stack;
 
 public class State {
@@ -18,12 +17,18 @@ public class State {
     private final int jugCount;
 
     /**
+     * number of different transfer operations between each jug,
+     * calculated by {@link State#jugCount} * ({@link State#jugCount} - 1)
+     */
+    private final int transferOperations;
+
+    /**
      * branches field represents the number of different operations
-     * (branches from one state to another) are available.
+     * (branches from one state to another) that are available.
      * <p>
-     * jugCount Fill operations +
-     * jugCount * (jugCount - 1) Transfer operations +
-     * jugCount Empty operations
+     * {@link State#jugCount} Fill operations +
+     * {@link State#transferOperations} Transfer operations +
+     * {@link State#jugCount} Empty operations
      */
 
     private final int branches;
@@ -39,12 +44,6 @@ public class State {
      */
 
     private final int[] fills;
-
-    /**
-     * number of different transfer operations between each jug,
-     * calculated by {@link State#jugCount} * ({@link State#jugCount} - 1)
-     */
-    private final int transferOperations;
 
     State(int[] fills, int[] capacities) {
         this.capacities = capacities;
@@ -69,10 +68,12 @@ public class State {
 
     /**
      * This method goes down 1 of "branches" branches,
-     * which each represent an operation such as "Fill Jug 1"
+     * which each represent an operation such as "Fill Jug 1."
+     * This method clones the current state, decodes the branch number
+     * into an operation and then runs the operation.
      *
      * @param branch to be traversed
-     * @return the child state (node) at the end of that branch
+     * @return the child state (node) at the end of the branch
      * @see State#branches
      */
 
@@ -93,6 +94,14 @@ public class State {
         return childState;
     }
 
+    /**
+     * transfers water between the source and destination jug
+     * without overflowing
+     *
+     * @param source      jug
+     * @param destination jug
+     */
+
     public void transfer(int source, int destination) {
         int destinationCapacity = capacities[destination];
         int destinationFill = fills[destination];
@@ -106,13 +115,32 @@ public class State {
                         result : destinationCapacity;
     }
 
+    /**
+     * Fills jug to max capacity
+     *
+     * @param jug index
+     */
+
     public void fill(int jug) {
         fills[jug] = capacities[jug];
     }
 
+    /**
+     * Empties jug
+     *
+     * @param jug index
+     */
+
     public void empty(int jug) {
         fills[jug] = 0;
     }
+
+    /**
+     * Used to log the order of operations within {@link State#search()}
+     *
+     * @param branch to be decoded
+     * @return description of decoded branch operation
+     */
 
     public String branchDescription(int branch) {
         if (branch < transferOperations) {
@@ -214,6 +242,11 @@ public class State {
     public int hashCode() {
         return StateSearch.pair(fills);
     }
+
+    /**
+     * @return clone of this state
+     * @see State#traverse(int)
+     */
 
     @Override
     protected State clone() {
