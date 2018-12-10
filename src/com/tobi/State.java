@@ -1,6 +1,7 @@
 package com.tobi;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Stack;
@@ -48,7 +49,7 @@ public class State {
 
     private final int[] fills;
 
-    private State(int[] fills, int[] capacities) {
+    public State(int[] fills, int[] capacities) {
         this.capacities = capacities;
         int jugCount = capacities.length;
         this.fills = fills;
@@ -186,12 +187,13 @@ public class State {
         for (; !stack.isEmpty(); ITERATIONS++) {
             State state = stack.pop();
             states.add(state);
-            System.out.println(state);
+//            System.out.println("Found: " + state);
             for (int i = 0; i < branches; i++) {
                 State childState = state.traverse(i);
+                if (!states.contains(childState)) {
 //                    System.out.println(branchDescription(i) + ": " + state + " > " + childState);
-                if (!states.contains(childState))
                     stack.push(childState);
+                }
             }
         }
 
@@ -206,6 +208,23 @@ public class State {
                 ITERATIONS,
                 (endTime - startTime) / 1E6
         );
+    }
+
+    public State[] find(State goal) {
+        HashSet<State> states = new HashSet<>();
+        Stack<State> stack = new Stack<>();
+        stack.push(this);
+
+        while (!stack.isEmpty()) {
+            State state = stack.pop();
+            states.add(state);
+            if (goal.equals(state)) return stack.toArray(new State[stack.size()]);
+            for (int i = 0; i < branches; i++) {
+                State childState = state.traverse(i);
+                if (!states.contains(childState)) stack.push(childState);
+            }
+        }
+        return null;
     }
 
     /**

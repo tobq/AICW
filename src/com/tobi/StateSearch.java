@@ -1,6 +1,7 @@
 package com.tobi;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -22,6 +23,8 @@ class StateSearch {
      */
 
     public static void main(String[] args) {
+//        State goal = new State(new int[]{3, 2, 3}, new int[]{8, 5, 3});
+//        System.out.println(Arrays.toString(State.setup(8, 5, 3).find(goal)));
         int capacityArgCount = args.length;
         State startState;
         if (capacityArgCount > 0) {
