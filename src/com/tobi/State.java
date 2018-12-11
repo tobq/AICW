@@ -186,7 +186,7 @@ public class State {
         for (; !stack.isEmpty(); ITERATIONS++) {
             State state = stack.pop();
             states.add(state);
-            System.out.println(state);
+//            System.out.println(state);
             for (int i = 0; i < branches; i++) {
                 State childState = state.traverse(i);
 //                    System.out.println(branchDescription(i) + ": " + state + " > " + childState);
