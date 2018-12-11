@@ -272,7 +272,7 @@ public class State {
 
     @Override
     protected State clone() {
-        return new State(fills.clone(), capacities.clone());
+        return new State(fills.clone(), capacities);
     }
 }
 
