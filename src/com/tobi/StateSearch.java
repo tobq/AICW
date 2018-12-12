@@ -14,6 +14,10 @@ import java.util.Scanner;
  */
 
 class StateSearch {
+    /**
+     * List of letters for jugs
+     */
+    static final char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
 
     /**
      * Starts state search using capacities from CLI arguments,
@@ -51,16 +55,17 @@ class StateSearch {
     private static int[] readCapacities() {
         ArrayList<Integer> capacityList = new ArrayList<>();
         try (Scanner scanner = new Scanner(System.in)) {
-            capacityList.add(readCapacity(scanner, 1));
+            capacityList.add(readCapacity(scanner, 0));
 
             System.out.println("\nWhen you're done adding additional jugs, press ENTER.");
-            for (int i = 2; ; i++) capacityList.add(readOptionalCapacity(scanner, i));
+            for (int i = 1; i < alphabet.length; i++) capacityList.add(readOptionalCapacity(scanner, i));
         } catch (NoSuchElementException e) {
-            int[] capacities = new int[capacityList.size()];
-            int size = capacityList.size();
-            for (int i = 0; i < size; i++) capacities[i] = capacityList.get(i);
-            return capacities;
+
         }
+        int[] capacities = new int[capacityList.size()];
+        int size = capacityList.size();
+        for (int i = 0; i < size; i++) capacities[i] = capacityList.get(i);
+        return capacities;
     }
 
     /**
@@ -92,7 +97,7 @@ class StateSearch {
     private static int readOptionalCapacity(Scanner scanner, int jugNumber)
             throws NoSuchElementException {
         try {
-            System.out.printf("Enter capacity for jug %d: ", jugNumber);
+            System.out.printf("Enter capacity for jug %s: ", alphabet[jugNumber]);
             String capacity = scanner.nextLine();
             if (capacity.isEmpty()) throw new NoSuchElementException("Enter key pressed");
             return Integer.parseInt(capacity);

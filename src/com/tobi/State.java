@@ -78,7 +78,7 @@ public class State {
      * @see State#branches
      */
 
-    private State traverse(int branch) {
+    public State traverse(int branch) {
         State childState = clone();
         if (branch < transferOperations) {
             int destinations = jugCount - 1,
@@ -144,18 +144,18 @@ public class State {
      * @see State#find(State)
      */
 
-    public String branchDescription(int branch) {
+    public String decodeBranch(int branch) {
         if (branch < transferOperations) {
             int destinations = jugCount - 1,
                     source = branch / destinations,
                     destination = branch % destinations;
             if (destination == source) destination = destinations;
 
-            return String.format("Transfer from Jug %d to Jug %d", source + 1, destination + 1);
+            return String.format("Transfer from Jug %s to Jug %s", StateSearch.alphabet[source], StateSearch.alphabet[destination]);
         } else {
             branch -= transferOperations;
-            if (branch < jugCount) return String.format("Fill Jug %d", branch + 1);
-            else return String.format("Empty Jug %d", branch - jugCount + 1);
+            if (branch < jugCount) return String.format("Fill Jug %s", StateSearch.alphabet[branch]);
+            else return String.format("Empty Jug %s", StateSearch.alphabet[branch - jugCount]);
         }
     }
 
@@ -178,12 +178,12 @@ public class State {
         HashSet<State> states = new HashSet<>();
         Stack<State> stack = new Stack<>();
         stack.push(this);
+        states.add(this);
 
         // Search stopwatch began
         long startTime = System.nanoTime();
         while (!stack.isEmpty()) {
             State state = stack.pop();
-            System.out.println("Found " + state);
             for (int i = 0; i < branches; i++) {
                 State childState = state.traverse(i);
                 if (states.add(childState))
@@ -203,31 +203,37 @@ public class State {
         );
     }
 
+    /**
+     * @param goal state to be found
+     * @return path to goal state (encoded branch numbers)
+     *
+     * @see State#decodeBranch(int)
+     */
+
     public ArrayList<Integer> find(State goal) {
         HashMap<State, ArrayList<Integer>> paths = new HashMap<>();
         HashSet<State> states = new HashSet<>();
         Stack<State> stack = new Stack<>();
-        stack.push(this);
+
         paths.put(this, new ArrayList<>());
+        stack.push(this);
+        states.add(this);
 
         while (!stack.isEmpty()) {
             State state = stack.pop();
-            states.add(state);
-            if (goal.equals(state)) return paths.get(state);
+            if (state.equals(goal)) return paths.get(state);
             for (int i = 0; i < branches; i++) {
                 State childState = state.traverse(i);
-                ArrayList<Integer> parentPath = paths.get(state);
-                int newPathLength = parentPath.size() + 1;
-                if (!paths.containsKey(childState) || newPathLength < paths.get(childState).size()) {
-                    ArrayList<Integer> newPath = new ArrayList<>(parentPath);
+                if (states.add(childState)) {
+                    stack.push(childState);
+                    ArrayList<Integer> newPath = new ArrayList<>(paths.get(state));
                     newPath.add(i);
                     paths.put(childState, newPath);
                 }
-
-                if (!states.contains(childState)) stack.push(childState);
             }
         }
-        return null;
+
+        throw new NoSuchElementException(goal + " not in graph");
     }
 
     /**
