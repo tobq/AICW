@@ -137,7 +137,7 @@ public class State {
     }
 
     /**
-     * Used to retreive human readable description for an encoded branch
+     * Used to retrieve human readable description for an encoded branch
      *
      * @param branch to be decoded
      * @return description of decoded branch operation
