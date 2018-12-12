@@ -1,9 +1,7 @@
 package com.tobi;
 
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * State class representing a state of n water jugs
@@ -48,7 +46,7 @@ public class State {
 
     private final int[] fills;
 
-    private State(int[] fills, int[] capacities) {
+    public State(int[] fills, int[] capacities) {
         this.capacities = capacities;
         int jugCount = capacities.length;
         this.fills = fills;
@@ -143,6 +141,7 @@ public class State {
      *
      * @param branch to be decoded
      * @return description of decoded branch operation
+     * @see State#find(State)
      */
 
     public String branchDescription(int branch) {
@@ -152,11 +151,11 @@ public class State {
                     destination = branch % destinations;
             if (destination == source) destination = destinations;
 
-            return String.format("Transfer from Jug %d to Jug %d", source, destination);
+            return String.format("Transfer from Jug %d to Jug %d", source + 1, destination + 1);
         } else {
             branch -= transferOperations;
-            if (branch < jugCount) return String.format("Fill Jug %d", branch);
-            else return String.format("Empty Jug %d", branch - jugCount);
+            if (branch < jugCount) return String.format("Fill Jug %d", branch + 1);
+            else return String.format("Empty Jug %d", branch - jugCount + 1);
         }
     }
 
@@ -182,15 +181,12 @@ public class State {
 
         // Search stopwatch began
         long startTime = System.nanoTime();
-        long ITERATIONS = 0;
-        for (; !stack.isEmpty(); ITERATIONS++) {
+        while (!stack.isEmpty()) {
             State state = stack.pop();
-            states.add(state);
-//            System.out.println(state);
+            System.out.println("Found " + state);
             for (int i = 0; i < branches; i++) {
                 State childState = state.traverse(i);
-//                    System.out.println(branchDescription(i) + ": " + state + " > " + childState);
-                if (!states.contains(childState))
+                if (states.add(childState))
                     stack.push(childState);
             }
         }
@@ -200,12 +196,38 @@ public class State {
 
         System.out.printf(
                 "\nFound %d unique states from jug capacities %s\n" +
-                        "Search iterated %d times in %.3f milliseconds",
+                        "Search elapsed in %.3f milliseconds",
                 states.size(),
                 Arrays.toString(capacities),
-                ITERATIONS,
                 (endTime - startTime) / 1E6
         );
+    }
+
+    public ArrayList<Integer> find(State goal) {
+        HashMap<State, ArrayList<Integer>> paths = new HashMap<>();
+        HashSet<State> states = new HashSet<>();
+        Stack<State> stack = new Stack<>();
+        stack.push(this);
+        paths.put(this, new ArrayList<>());
+
+        while (!stack.isEmpty()) {
+            State state = stack.pop();
+            states.add(state);
+            if (goal.equals(state)) return paths.get(state);
+            for (int i = 0; i < branches; i++) {
+                State childState = state.traverse(i);
+                ArrayList<Integer> parentPath = paths.get(state);
+                int newPathLength = parentPath.size() + 1;
+                if (!paths.containsKey(childState) || newPathLength < paths.get(childState).size()) {
+                    ArrayList<Integer> newPath = new ArrayList<>(parentPath);
+                    newPath.add(i);
+                    paths.put(childState, newPath);
+                }
+
+                if (!states.contains(childState)) stack.push(childState);
+            }
+        }
+        return null;
     }
 
     /**
@@ -253,7 +275,7 @@ public class State {
 
     @Override
     protected State clone() {
-        return new State(fills.clone(), capacities.clone());
+        return new State(fills.clone(), capacities);
     }
 }
 

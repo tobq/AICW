@@ -1,6 +1,7 @@
 package com.tobi;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -52,7 +53,7 @@ class StateSearch {
         try (Scanner scanner = new Scanner(System.in)) {
             capacityList.add(readCapacity(scanner, 1));
 
-            System.out.println("\nWhen you're done adding additional jug capacities, press ENTER.");
+            System.out.println("\nWhen you're done adding additional jugs, press ENTER.");
             for (int i = 2; ; i++) capacityList.add(readOptionalCapacity(scanner, i));
         } catch (NoSuchElementException e) {
             int[] capacities = new int[capacityList.size()];
